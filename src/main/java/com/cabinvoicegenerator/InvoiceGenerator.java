@@ -18,13 +18,13 @@ public class InvoiceGenerator {
 
 	}
 	
-	public InvoiceSummary calculateFare(ArrayList<Ride> arrayList) {
+	public InvoiceSummary calculateFare(Ride[] arrayList) {
 
 		double totalFare = 0;
 		for (Ride ride : arrayList) {
-			totalFare += this.calculateFare(ride.distance, ride.time);
+			totalFare += ride.cabRide.calcCostOfCabRide(ride);
 		}
-		return new InvoiceSummary(arrayList.size(), totalFare);
+		return new InvoiceSummary(arrayList.length, totalFare);
 	}
 
 	public void addRides(String userId, Ride[] rides) {
@@ -36,5 +36,9 @@ public class InvoiceGenerator {
 
 		return this.calculateFare(rideRepository.getRides(userId));
 	}
+	public void setRideRepository(RideRepository rideRepository) {
+		this.rideRepository = rideRepository;
+	}
+
 
 }
